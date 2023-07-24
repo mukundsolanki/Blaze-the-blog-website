@@ -10,7 +10,7 @@ export default function PostContent({ post }) {
       <span className="text-sm">
         Written by{' '}
         <Link legacyBehavior href={`/${post.username}/`}>
-          <a className="text-info">@{post.username}</a>
+          <a className="text-info"><span className="username-text">@{post.username}</span></a>
         </Link>{' '}
         on {createdAt.toISOString()}
       </span>

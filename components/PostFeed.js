@@ -12,7 +12,7 @@ function PostItem({ post, admin = false }) {
     <div className="card">
       <Link legacyBehavior href={`/${post.username}`}>
         <a>
-          <strong>By @{post.username}</strong>
+          <strong>By <span className='username-text'>@{post.username}</span></strong>
         </a>
       </Link>
 
