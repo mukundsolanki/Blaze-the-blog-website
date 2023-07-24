@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { UserContext } from '../lib/context';
 import { useEffect, useState, useCallback, useContext } from 'react';
@@ -5,6 +6,14 @@ import debounce from 'lodash.debounce';
 
 export default function Enter(props) {
   const { user, username } = useContext(UserContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user && username) {
+      router.push('/');
+    }
+  }, [user, username, router]);
+
   return (
     <main>
       {user ? !username ? <UsernameForm /> : <SignOutButton /> : <SignInButton />}
@@ -21,9 +30,6 @@ function SignInButton() {
     <>
       <button className="btn-google" onClick={signInWithGoogle}>
         <img src={'/google.png'} width="30px" /> Sign in with Google
-      </button>
-      <button onClick={() => auth.signInAnonymously()}>
-        Sign in Anonymously
       </button>
     </>
   );
@@ -90,12 +96,12 @@ function UsernameForm() {
   return (
     !username && (
       <section>
-        <h3>Choose Username</h3>
+        <h3>CHOOSE USERNAME</h3>
         <form onSubmit={onSubmit}>
-          <input name="username" placeholder="myname" value={formValue} onChange={onChange} />
+          <input name="username" placeholder="Enter your username here" value={formValue} onChange={onChange} />
           <UsernameMessage username={formValue} isValid={isValid} loading={loading} />
           <button type="submit" className="btn-green" disabled={!isValid}>
-            Choose
+            Submit
           </button>
 
           <h3>Debug State</h3>
